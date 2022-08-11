@@ -1,0 +1,99 @@
+﻿@page "/mint"
+@using SuiDotNet.Blazor
+@using SuiDotNet.Blazor.DTOs
+@inject ISuiWebWallet SuiWallet;
+@inject ISuiClient SuiClient;
+
+<PageTitle>Mint DevNet NFT</PageTitle>
+
+<h1>Mint DevNet NFT</h1>
+
+@if (!SuiWallet.Connected)
+{
+    <h1>Please connect your wallet! <a href="/">Here</a></h1>
+}
+else
+{
+    <EditForm Model="@FormModel" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        
+        <div class="form-group">
+            <label for="name">Name</label>
+            <InputText id="name" @bind-Value="FormModel.Name" />
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Description</label>
+            <InputText id="description" @bind-Value="FormModel.Description" />
+        </div>
+
+        <div class="form-group">
+            <label for="url">Image Url</label>
+            <InputText id="url" @bind-Value="FormModel.Url" />
+        </div>
+
+        <div class="text-right">
+            <button type="submit">Send Tx</button>
+        </div>
+        
+        <ValidationSummary />
+    </EditForm>
+
+    @if (Sent)
+    {
+        <div>Was sent to the gateway.</div>
+        <div>See your NFTs <a href="/list-nfts">here</a></div>
+    }
+}
+
+@code {
+
+    private NftForm FormModel = new();
+    private bool Sent = false;
+
+    private async Task HandleValidSubmit()
+    {
+        Sent = false;
+
+        var account = (await SuiWallet.GetAccounts()).First();
+        var objects = await SuiClient.GetObjectsOwnedByAddress(account);
+        var suiCoins = await SuiClient.GetObjects<Coin<SUI>>(objects);
+
+        var expectedGas = 10000;
+
+        var gasObject = suiCoins.FirstOrDefault(x => x.Balance >= expectedGas);
+
+        var result = await SuiWallet.ExecuteMoveCall(new MoveCallTransaction(
+            packageId: "0x2",
+            module: "devnet_nft",
+            function: "mint",
+            typeArgs: Array.Empty<string>(),
+            args: new object[]{
+                FormModel.Name,
+                FormModel.Description,
+                FormModel.Url
+            },
+            gasCoinId: gasObject.Info.Id,
+            gasBudget: expectedGas
+        ));
+        
+        Sent = true;
+    }
+
+
+    public class NftForm
+    {
+        [Required]
+        [StringLength(100, ErrorMessage = "Name is too long.")]
+        public string? Name { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "Description is too long.")]
+        public string? Description { get; set; }
+
+        [Required]
+        [Url(ErrorMessage = "Must be a valid URL")]
+        public string? Url { get; set; }
+    }
+}
+

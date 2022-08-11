@@ -1,0 +1,110 @@
+﻿@page "/"
+
+@inject ISuiWebWallet SuiWallet;
+@inject ISuiClient SuiClient;
+
+<PageTitle>Index</PageTitle>
+
+@if (!walletExists)
+{
+    <h1>No wallet found in browser!</h1>
+    <p>Add the Sui Wallet extension: <a href="https://chrome.google.com/webstore/detail/opcgpfmipidbgpenhmajoajpbobppdil">Sui Wallet</a></p>
+}
+else
+{
+    @if (!connected)
+    {
+        <h1>Please connect your wallet!</h1>
+    }
+    else
+    {
+        <h1>Hello, @accountAddress!</h1>
+        @if (gotBalance)
+        {
+            <p>Sui Balance: @suiBalance.ToString() SUI</p>
+        }
+    }
+
+    @if (!connected)
+    {
+        <button class="btn btn-primary" @onclick="Connect">Connect</button>
+    }
+    else
+    {
+        <button class="btn btn-primary" @onclick="UpdateBalances">Refresh Balance</button>
+
+        <h2>Your Objects</h2>
+        <table style="width: 100%;">
+            <thead>
+            <tr style="font-weight: bold;">
+                <td>Object ID</td>
+                <td>Package</td>
+                <td>Module</td>
+                <td>Type</td>
+                <td>Digest</td>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var obj in suiObjects)
+            {
+                var type = SuiEx.GetType(obj.Data.Type);
+                <tr>
+                    <td>@obj.Reference.ObjectId</td>
+                    <td>@type.package</td>
+                    <td>@type.module</td>
+                    <td>@type.type</td>
+                    <td>@obj.Reference.Digest</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+}
+
+
+
+@code {
+
+    private bool walletExists = false;
+    private bool connected = false;
+    private string accountAddress = "";
+    private bool gotBalance = false;
+    private BigInteger suiBalance = 0;
+    private SuiObject[] suiObjects = Array.Empty<SuiObject>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        walletExists = await SuiWallet.WalletConnectorExists();
+    }
+
+    private async Task Connect()
+    {
+        connected = await SuiWallet.Connect();
+        if (connected)
+        {
+            var accounts = await SuiWallet.GetAccounts();
+            accountAddress = accounts.FirstOrDefault();
+            await UpdateBalances();
+        }
+    }
+
+    private async Task UpdateBalances()
+    {
+        if (connected)
+        {
+            var accounts = await SuiWallet.GetAccounts();
+            var objects = await SuiClient.GetObjectsOwnedByAddress(accounts.FirstOrDefault());
+            var suiCoins = await SuiClient.GetObjects<Coin<SUI>>(objects);
+            suiBalance = 0;
+            foreach (var suiCoin in suiCoins)
+            {
+                suiBalance += suiCoin.Balance;
+            }
+            gotBalance = true;
+
+            suiObjects = await SuiClient.GetObjects(objects);
+        }
+    }
+}

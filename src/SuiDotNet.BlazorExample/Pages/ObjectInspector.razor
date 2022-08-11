@@ -1,0 +1,63 @@
+﻿@page "/object-inspector"
+@using Newtonsoft.Json
+@using SuiDotNet.Blazor
+@using SuiDotNet.Client.Requests
+@inject ISuiWebWallet SuiWallet;
+@inject ISuiClient SuiClient;
+
+<PageTitle>Object Inspector</PageTitle>
+
+<h1>Object Inspector</h1>
+
+<EditForm Model="@FormModel" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    
+    <div class="form-group">
+        <label for="name">ObjectId</label>
+        <InputText id="name" @bind-Value="FormModel.ObjectId" />
+    </div>
+   
+    <div class="text-right">
+        <button type="submit">Find</button>
+    </div>
+    
+    <ValidationSummary />
+</EditForm>
+
+@if (!searching)
+{
+    <pre>
+        @JsonConvert.SerializeObject(suiObject, Formatting.Indented)
+    </pre>
+}
+else
+{
+    <p>Searching...</p>
+}
+
+
+@code {
+
+    private SuiObject? suiObject;
+    private Form FormModel = new();
+    private bool searching = false;
+
+    private async Task HandleValidSubmit()
+    {
+        searching = true;
+        suiObject = null;
+        try
+        {
+            suiObject = await SuiClient.GetObject(FormModel.ObjectId);
+        }
+        catch {}
+        searching = false;
+    }
+
+    public class Form
+    {
+        [Required]
+        public string? ObjectId { get; set; }
+    }
+}
+

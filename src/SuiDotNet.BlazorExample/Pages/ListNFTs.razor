@@ -1,0 +1,46 @@
+﻿@page "/list-nfts"
+@using SuiDotNet.Blazor
+@inject ISuiWebWallet SuiWallet;
+@inject ISuiClient SuiClient;
+
+<PageTitle>Your DevNet NFTs</PageTitle>
+
+<h1>Your DevNet NFTs</h1>
+<p>Lists the NFTs minted from the default devnet NFT project at 0x2::devnet_nft</p>
+
+@if (!SuiWallet.Connected)
+{
+    <h1>Please connect your wallet! <a href="/">Here</a></h1>
+}
+else
+{
+    foreach (var nft in Nfts)
+    {
+        <div>
+            <p>
+                ObjectId: @nft.Info.Id<br />
+                Name: @nft.Name<br/>
+                Description: @nft.Description<br />
+                Url: @nft.Url <br />
+                <img src="@nft.Url" style="max-width: 100px" />
+            </p>
+        </div>
+    }
+}
+
+@code {
+
+    private DevNetNft[] Nfts = Array.Empty<DevNetNft>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        if (SuiWallet.Connected)
+        {
+            var account = (await SuiWallet.GetAccounts()).First();
+            var objects = await SuiClient.GetObjectsOwnedByAddress(account);
+            Nfts = await SuiClient.GetObjects<DevNetNft>(objects);
+        }
+    }
+}
+

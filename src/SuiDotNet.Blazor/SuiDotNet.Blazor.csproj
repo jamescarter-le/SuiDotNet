@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+	<Version>$(SuiDotNetVersion)</Version>
+	<TargetFrameworks>$(DefaultFrameworks)</TargetFrameworks>
+	<AssemblyName>SuiDotNet.Blazor</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.JSInterop" Version="6.0.7" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <Version>$(SuiDotNetVersion)</Version>
+    <TargetFrameworks>$(DefaultFrameworks)</TargetFrameworks>
+    <AssemblyName>SuiDotNet.Accounts</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HDWallet.Ed25519" Version="0.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+  </ItemGroup>
+
+</Project>
