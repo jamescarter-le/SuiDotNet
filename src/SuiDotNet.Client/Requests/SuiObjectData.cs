@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 
-namespace SuiDotNet.Client.Requests;
-
+namespace SuiDotNet.Client.Requests
+{
 public class SuiObjectData
 {
     [JsonProperty("dataType")]
@@ -20,4 +20,5 @@ public class SuiObjectData
         HasPublicTransfer = hasPublicTransfer;
         Fields = fields;
     }
+}
 }

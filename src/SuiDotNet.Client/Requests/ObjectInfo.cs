@@ -1,5 +1,5 @@
-﻿namespace SuiDotNet.Client.Requests;
-
+﻿namespace SuiDotNet.Client.Requests
+{
 public class ObjectInfo
 {
     public string Id { get; set; }
@@ -8,4 +8,5 @@ public class ObjectInfo
     {
         Id = id;
     }
+}
 }

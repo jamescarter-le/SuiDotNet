@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 
-namespace SuiDotNet.Client.Requests;
-
+namespace SuiDotNet.Client.Requests
+{
 public class SuiObjectInfo
 {
     [JsonProperty("objectId")]
@@ -23,4 +23,5 @@ public class SuiObjectInfo
         Owner = owner;
         PreviousTransaction = previousTransaction;
     }
+}
 }

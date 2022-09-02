@@ -1,12 +1,13 @@
-﻿namespace SuiDotNet.Client.Types;
-
-[MoveType(PackageId = "0x2", Module = "balance", Struct = "Supply")]
-public class Supply<T>
+﻿namespace SuiDotNet.Client.Types
 {
-    public long Value { get; }
-
-    public Supply(long value)
+    [MoveType(PackageId = "0x2", Module = "balance", Struct = "Supply")]
+    public class Supply<T>
     {
-        Value = value;
+        public long Value { get; }
+
+        public Supply(long value)
+        {
+            Value = value;
+        }
     }
 }

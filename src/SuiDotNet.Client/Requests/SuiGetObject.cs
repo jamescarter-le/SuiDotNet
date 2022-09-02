@@ -1,7 +1,7 @@
 ﻿using Nethereum.JsonRpc.Client;
 
-namespace SuiDotNet.Client.Requests;
-
+namespace SuiDotNet.Client.Requests
+{
 public class SuiGetObject : RpcRequestResponseHandler<ObjectDataResponse>
 {
     public SuiGetObject(IClient client) : base(client, "sui_getObject")
@@ -20,4 +20,5 @@ public class SuiGetObject : RpcRequestResponseHandler<ObjectDataResponse>
         if (address == null) throw new ArgumentNullException(nameof(address));
         return BuildRequest(id, address);
     }
+}
 }

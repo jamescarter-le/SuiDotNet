@@ -1,7 +1,8 @@
 ﻿using Nethereum.JsonRpc.Client;
 using SuiDotNet.Client.Requests;
 
-namespace SuiDotNet.Client;
+namespace SuiDotNet.Client
+{
 
 public class SuiJsonClient : ISuiClient
 {
@@ -124,4 +125,6 @@ public class SuiJsonClient : ISuiClient
             .Select(x => SuiEx.ObjectFromDictionary(x.Data.Fields, objectType))
             .ToArray();
     }
+}
+
 }

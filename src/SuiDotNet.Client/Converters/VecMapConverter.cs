@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace SuiDotNet.Client.Converters;
+namespace SuiDotNet.Client.Converters
+{
 
 public class VecMapConverter<TKey, TValue> : JsonConverter<Dictionary<TKey, TValue>> where TKey : notnull
 {
@@ -54,4 +55,6 @@ public class VecMapConverter<TKey, TValue> : JsonConverter<Dictionary<TKey, TVal
 
         return result;
     }
+}
+
 }

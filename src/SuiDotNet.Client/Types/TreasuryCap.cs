@@ -1,16 +1,17 @@
 ﻿using SuiDotNet.Client.Requests;
 
-namespace SuiDotNet.Client.Types;
-
-[MoveType(PackageId = "0x2", Module = "coin", Struct = "TreasuryCap")]
-public class TreasuryCap<T>
+namespace SuiDotNet.Client.Types
 {
-    public ObjectInfo Info { get; set; }
-    public Supply<T> TotalSupply { get; set; }
-
-    public TreasuryCap(ObjectInfo info, Supply<T> totalSupply)
+    [MoveType(PackageId = "0x2", Module = "coin", Struct = "TreasuryCap")]
+    public class TreasuryCap<T>
     {
-        Info = info;
-        TotalSupply = totalSupply;
+        public ObjectInfo Info { get; set; }
+        public Supply<T> TotalSupply { get; set; }
+
+        public TreasuryCap(ObjectInfo info, Supply<T> totalSupply)
+        {
+            Info = info;
+            TotalSupply = totalSupply;
+        }
     }
 }

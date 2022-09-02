@@ -2,7 +2,8 @@
 using Newtonsoft.Json.Linq;
 using SuiDotNet.Client.Requests;
 
-namespace SuiDotNet.Client.Converters;
+namespace SuiDotNet.Client.Converters
+{
 
 public class ObjectOwnerConverter : JsonConverter<ObjectOwner>
 {
@@ -39,4 +40,6 @@ public class ObjectOwnerConverter : JsonConverter<ObjectOwner>
 
         return new ObjectOwner(OwnerType.Unknown);
     }
+}
+
 }
