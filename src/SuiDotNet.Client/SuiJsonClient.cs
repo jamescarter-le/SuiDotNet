@@ -1,4 +1,7 @@
-﻿using Nethereum.JsonRpc.Client;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Nethereum.JsonRpc.Client;
 using SuiDotNet.Client.Requests;
 
 namespace SuiDotNet.Client
@@ -16,7 +19,7 @@ public class SuiJsonClient : ISuiClient
 
     public SuiJsonClient(Uri rpcEndpoint)
     {
-        _settings = new();
+        _settings = new SuiClientSettings();
         var serializerOptions = DefaultJsonSerializerSettingsFactory.BuildDefaultJsonSerializerSettings();
         _rpcClient = new RpcClient(rpcEndpoint, jsonSerializerSettings: serializerOptions);
     }

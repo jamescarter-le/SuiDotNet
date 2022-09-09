@@ -1,4 +1,6 @@
-﻿namespace SuiDotNet.Client
+﻿using System.Collections.Generic;
+
+namespace SuiDotNet.Client
 {
     public class SuiClientSettings
     {

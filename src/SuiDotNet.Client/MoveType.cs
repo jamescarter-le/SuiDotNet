@@ -1,4 +1,4 @@
-﻿using SuiDotNet.Client.Requests;
+﻿using System;
 
 namespace SuiDotNet.Client
 {

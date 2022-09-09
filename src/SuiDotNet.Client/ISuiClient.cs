@@ -1,11 +1,13 @@
-﻿using SuiDotNet.Client.Requests;
+﻿using System;
+using System.Threading.Tasks;
+using SuiDotNet.Client.Requests;
 
 namespace SuiDotNet.Client
 {
     public interface ISuiClient
     {
         Task<SuiObjectInfo[]> GetObjectsOwnedByAddress(string address);
-        
+
         Task<SuiObject?> GetObject(SuiObjectInfo objectInfo);
         Task<SuiObject?> GetObject(string objectId);
         Task<T?> GetObject<T>(string objectId) where T : class;
