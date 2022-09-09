@@ -1,4 +1,6 @@
-﻿using Nethereum.JsonRpc.Client;
+﻿using System;
+using System.Threading.Tasks;
+using Nethereum.JsonRpc.Client;
 
 namespace SuiDotNet.Client.Requests
 {
