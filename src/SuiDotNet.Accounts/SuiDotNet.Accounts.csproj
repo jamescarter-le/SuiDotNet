@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Nullable>enable</Nullable>
     <Version>$(SuiDotNetVersion)</Version>
-    <TargetFrameworks>$(DefaultFrameworks);netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>$(DefaultFrameworks);net6.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>SuiDotNet.Accounts</AssemblyName>
   </PropertyGroup>
 
