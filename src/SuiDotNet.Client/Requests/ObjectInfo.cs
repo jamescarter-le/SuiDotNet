@@ -1,11 +1,12 @@
-﻿namespace SuiDotNet.Client.Requests;
-
-public class ObjectInfo
+﻿namespace SuiDotNet.Client.Requests
 {
-    public string Id { get; set; }
-
-    public ObjectInfo(string id)
+    public class ObjectInfo
     {
-        Id = id;
+        public string Id { get; set; }
+
+        public ObjectInfo(string id)
+        {
+            Id = id;
+        }
     }
 }

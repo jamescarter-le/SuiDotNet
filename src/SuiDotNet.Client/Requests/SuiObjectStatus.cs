@@ -1,7 +1,8 @@
-﻿namespace SuiDotNet.Client.Requests;
-
-public enum SuiObjectStatus
+﻿namespace SuiDotNet.Client.Requests
 {
-    NotExists,
-    Exists
+    public enum SuiObjectStatus
+    {
+        NotExists,
+        Exists
+    }
 }

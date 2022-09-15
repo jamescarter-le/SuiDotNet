@@ -1,18 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
     <Version>$(SuiDotNetVersion)</Version>
-    <TargetFrameworks>$(DefaultFrameworks)</TargetFrameworks>
+    <TargetFrameworks>$(DefaultFrameworks);net6.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>SuiDotNet.Client</AssemblyName>
     <PackageId>SuiDotNet.Client</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Nethereum.JsonRpc.RpcClient" Version="4.8.0" />
+    <PackageReference Include="Nethereum.Web3" Version="4.8.0" />
   </ItemGroup>
 
 </Project>

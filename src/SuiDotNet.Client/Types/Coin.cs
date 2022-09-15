@@ -1,17 +1,18 @@
 ﻿using System.Numerics;
 using SuiDotNet.Client.Requests;
 
-namespace SuiDotNet.Client.Types;
-
-[MoveType(PackageId = "0x2", Module = "coin", Struct = "Coin")]
-public class Coin<T>
+namespace SuiDotNet.Client.Types
 {
-    public ObjectInfo Info { get; }
-    public BigInteger Balance { get; }
-
-    public Coin(ObjectInfo info, BigInteger balance)
+    [MoveType(PackageId = "0x2", Module = "coin", Struct = "Coin")]
+    public class Coin<T>
     {
-        Info = info;
-        Balance = balance;
+        public ObjectInfo Info { get; }
+        public BigInteger Balance { get; }
+
+        public Coin(ObjectInfo info, BigInteger balance)
+        {
+            Info = info;
+            Balance = balance;
+        }
     }
 }

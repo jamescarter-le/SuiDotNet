@@ -1,9 +1,10 @@
-﻿namespace SuiDotNet.Client.Requests;
-
-public enum OwnerType
+﻿namespace SuiDotNet.Client.Requests
 {
-    Unknown,
-    Address,
-    Object,
-    Shared
+    public enum OwnerType
+    {
+        Unknown,
+        Address,
+        Object,
+        Shared
+    }
 }
