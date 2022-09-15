@@ -1,4 +1,5 @@
-﻿using HDWallet.Core;
+﻿using System.Linq;
+using HDWallet.Core;
 using Org.BouncyCastle.Crypto.Digests;
 
 namespace SuiDotNet.Accounts

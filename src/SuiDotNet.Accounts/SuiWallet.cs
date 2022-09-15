@@ -1,4 +1,6 @@
-﻿using HDWallet.Core;
+﻿using System;
+using System.Linq;
+using HDWallet.Core;
 using HDWallet.Ed25519;
 
 namespace SuiDotNet.Accounts
